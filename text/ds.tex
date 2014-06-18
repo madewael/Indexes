@@ -1,0 +1,100 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Data Structure Layouting}
+\author{Mattias De Wael}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	Algorithms + Data Structures = Programs --- This is a well known statement,
+and most Computer Science curricula introduce the fine art of combining them
+to their students.
+\end{abstract}
+
+\section{Introduction}
+Algorithms + Data Structures = Programs; and getting the combination right is
+a matter of education, a matter of experience, and --in the case of venturing
+unwalked paths-- a matter of inventiveness. An application, however, seldomly
+relies on a single algorithm to do what it is supposed to do. From a macroscopic
+point of view, a program rather uses algorithms as building blocks in the overall
+programs architecture.
+
+For programmers it is easier to reason about their program if they can think
+about concepts only and can program against an interface to the data. Such an
+interface is often referred to as an \emph{Abstract Data Type}.
+
+
+\section{Abstract Data Types and Data Structures}
+An abstract data type (ADT) is a \emph{conceptual} model of the
+\emph{interface} (cfr., access, modify) to data. The job of a programmer is to
+concretise the concepts of such a model and write actual code. Such an
+implementation of an ADT is called a \emph{data structure}. Such an
+implementation makes it explicit \emph{how} to access or modify the data. To
+this end, the storage model is also made explicit. Depending on the program, a
+different data structure is chosen for the same ADT. While the interface is
+shared, the performance characteristics can vary between implementations (eg.,
+constant time versus linear time).
+
+First, we make the distinction between \emph{pointer based} and
+\emph{continuous} data structures. Pointer based (or dynamic) data structures
+structurally links together locations in the heap by mean of pointers. A
+continuos (or static) data structure on the other hand, stores all the data in
+a continues area in memory.
+
+\section{Continuous Data Structures}
+An ADT describes the interface to access and modify data. This interface maps
+the cross product (i.e., n-dimensional) of the ADT's concepts to the data
+elements. A continuous data structure stores these data elements in a
+continuos region of memory. 
+
+
+While the
+conceptual data can be N-dimensional, a region of memory is inherently linear.
+In other words, there must be a function that maps an N-dimensional concept to
+an index, and conversely, there must be and inverse function that maps a
+memory element to a concept. Respectively, we call these functions,
+\emph{linearization} and \emph{conceptualisation}. 
+
+\paragraph{Example:} Consider the ADT of $(4\times 5)$-matrixes, i.e., 4
+\emph{rows} and 5 \emph{columns}. Here, \emph{rows} and \emph{columns} are the
+concepts. A continuous data structure for such an ADT would require a memory
+region $[i,i+(4*5)[$. A possible linearization function could be $f(r,c)=
+(r*5)+c$ (cfr., row-major order) which uniquely defines the conceptualisation
+function $f^{-1}(i) = ( i\%5 , i/5 )$.
+
+Defining an ADT for each possible size of matrixes is not feasible. To this
+end, continuous data structures are often parameterized with their size. In
+the matrix example this could mean that \emph{number of rows} and/or
+\emph{number of columns} are an inherent part of the data structure and even
+the ADT. For instance, if the number of rows is variable in the matrix-ADT,
+the ADT will provide an accessor in the interface to retrieve the number of
+rows, etc. We call these the \emph{ADT parameters}. These parameters can now
+serve as assumed values in the linearization and conceptualisation functions
+of a continuous data structure. This allows to formalise a continuous data
+structure as a 3-tuple $(f,P,R)$ where $P$ is the set of ADT parameters, $R =
+\bigcup_{i=s}^{s+size} M[i]$ a continuous region in memory such that
+$R[i]=M[i+s]$. Finally,$f$ a function that maps $f: \mathbb{C} \to S$ where
+$\mathbb{C}=(C_0 \times C_1 \times \dots C_n)$ and where $S=[0,size[$. Such
+that $R[ f_P( c ) ]$ points to the actual location in memory.
+
+\section{Examples}
+\subsection{$(R \times C)$-Matrices}
+\paragraph{ADT parameters} $N$
+
+\subsection{Sequence of Persons}
+
+\subsection{N-ary tree}
+
+
+
+\end{document}  
